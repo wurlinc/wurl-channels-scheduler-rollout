@@ -1,0 +1,36 @@
+{
+  "name": "wurl-channels-scheduler",
+  "description": "Wurl Scheduler",
+  "repository": "https://github.com/wurlinc/wurl-channels-scheduler",
+  "env": {
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "ROX_CLIENT_KEY": {
+      "required": true
+    },
+    "STAGE": {
+      "required": true
+    },
+    "WURL_HOST": {
+      "required": true
+    }
+  },
+  "environments": {
+    "test": {
+      "env": {
+        "RAILS_SERVE_STATIC_FILES": true,
+        "LANG": "en_US"
+      },
+      "formation" : {
+        "test": {
+          "quantity": 1,
+          "size": "performance-l"
+        }
+      },
+    }
+  }
+}

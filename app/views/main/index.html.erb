@@ -1,0 +1,10 @@
+<%# Commented below line b/c we're getting two stores on the DOM? %>
+<%#= redux_store("SchedulerStore", props: @react_scheduler_server_props) %>
+
+<%= react_component("Main", props: @app_props, prerender: false) %>
+
+<div id="dialogs"></div>
+
+<!-- This is a placeholder for ReactOnRails to know where to render the store props for
+     client side hydration. TODO put it on the layout. Also the store. -->
+<%= redux_store_hydration_data %>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wurl Platform 2.0 - <%=environment_name_for_title%></title>
+
+    <%= 
+        Rails.logger.debug("Rendering stylesheet tag")
+    stylesheet_link_tag    "application", :media => "all" %>
+    <%= 
+        Rails.logger.debug("Rendering stylesheet tag")
+    stylesheet_link_tag    "video-js", :media => "all" %>
+    <%= 
+            Rails.logger.debug("Rendering JS include tag for HLS")
+    javascript_include_tag "hls" %>
+
+    <script type="application/json" data-initial_rox_flags><%= 
+      # This is HTML safe because it's generated out of FeatureFlags and it's just varnames and booleans
+      initial_rox_flags.to_json.html_safe
+    %></script>
+
+    <% if ENV["HMR"] == 'true' %>
+      <%#= javascript_include_tag "http://#{ENV['WURL_HOST']}:8080/vendor-bundle.js" %>
+      <%#= javascript_include_tag "http://#{ENV['WURL_HOST']}:8080/main-bundle.js" %>
+      <%#= stylesheet_link_tag "http://#{ENV['WURL_HOST']}:8080/main.css" %>
+      <%= 
+        Rails.logger.debug("Rendering JS include tag for Main bundle")
+        javascript_include_tag "http://localhost:8080/webpack/main-bundle.js" %>
+      <%#= stylesheet_link_tag "http://localhost:8080/main.css" %>
+
+    <% else %>
+      <%= javascript_include_tag external_path_to_main_bundle %>
+      <%#= stylesheet_link_tag "main" %>
+    <% end %>
+
+    <!-- <link href='https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'> -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,500,700" rel="stylesheet" type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <%= 
+                Rails.logger.debug("Rendering JS include tag for application")
+
+    javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="<%=body_css_class%>">
+
+
+    <%#= render 'shared/navigation' %>
+    <% if params[:controller] != 'main' %>
+      <%#= render 'shared/navigation_react' %>
+      <main id="dialogs" class="container-fluid">
+      </main>
+
+      <div id="content-right">
+        <main id="main-container" role="main" class="container-fluid">
+          <div class="wrap--alert flash old-app">
+            <div>
+              <% flash.each do |name, msg| -%>
+              <%= content_tag :div, msg, class: "alert alert-#{name}" %>
+              <% end -%>
+            </div>
+          </div><!-- /row wrap-alert -->
+
+          <%= yield %>
+
+          <div class="row">
+            <div class="top-buffer"></div>
+          </div>
+        </main><!-- /container -->
+      <% else %>
+        <%=yield%>
+      <% end %>
+      </div>
+
+
+  </body>
+</html>

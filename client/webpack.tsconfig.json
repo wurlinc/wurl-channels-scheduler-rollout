@@ -1,0 +1,38 @@
+{
+  "exclude": [
+    "**/*.libdef.js",
+    "__tests__/**/*.*",
+    "html",
+    "webpack.config.js*",
+    "flow-typed/**/*.*",
+    "coverage",
+    "dist"
+  ],
+  "compilerOptions": {
+    "baseUrl": "./app",
+    "target": "es2015",
+    "module": "none",
+    "lib": [
+      "es2015",
+      "dom.iterable"
+    ],
+    "jsx": "react",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./app",
+    "strict": true,
+    "noImplicitAny": false,
+    "typeRoots": [
+    ],
+    "types": [
+      "material-ui"
+    ],
+    "rootDirs": [
+      "./app",
+      "./node_modules"
+    ],
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}

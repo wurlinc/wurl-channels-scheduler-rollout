@@ -1,0 +1,66 @@
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "pragma": "React.createElement", // default pragma is React.createElement
+        "pragmaFrag": "React.Fragment", // default is React.Fragment
+        "throwIfNamespace": true // defaults to true
+      }
+    ],
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry",
+        // This uses a browserslist-compatible query. See
+        // https://github.com/browserslist/browserslist
+        // To see which browsers, run
+        // npx browserslist (and the below string)
+        "targets": "> 0.25%, not dead",
+        "corejs": "2",
+      }
+    ],
+    [
+      "@babel/preset-typescript"
+    ]
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "@babel/plugin-syntax-dynamic-import",
+    // Enable Importing .graphql and .gql files as graphql-tag.
+    [
+      "import-graphql",
+      {
+        // return the graphql-tag import from source.
+        // Note false here would return the Javascript AST, which is binary but usually larger.
+        "runtime": true
+      }
+    ],
+    "@babel/proposal-object-rest-spread",
+    [
+      // so it understands decorators like @DragSource
+      "@babel/proposal-decorators",
+      {
+        // "decoratorsBeforeExport": true,
+        "legacy": true // I think
+      }
+    ],
+    // @babel/proposal-decorators must be before @babel/proposal-class-properties.
+    "@babel/proposal-class-properties",
+    ["@babel/plugin-transform-runtime"]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel",
+        // Not sure why, but HMR isn't happy unless runtime: false. -Ross
+        [
+          "import-graphql",
+          {
+            "runtime": false
+          }
+        ]
+      ]
+    }
+  }
+}

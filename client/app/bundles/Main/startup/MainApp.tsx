@@ -11,6 +11,7 @@ import { GlobalStoreType } from "../../../types/rails";
 import { featureFlags, FeatureFlagOverridesButton } from '../FeatureFlags'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MuiTheme from './muiTheme'
+import Rox from 'rox-browser';
 
 
 // See documentation for https://github.com/reactjs/react-redux.
@@ -26,15 +27,12 @@ import MuiTheme from './muiTheme'
  * It's actually not much to look at.
 **/
 const MainApp = ({ store, history }:{store:GlobalStoreType, history:THistory}) => {
-  import(/* webpackChunkName: "rox-browser" */ 'rox-browser').then(RoxModule=>{
-    let Rox = RoxModule.default
-    Rox.register('wurl', featureFlags)
-    console.log('ROX_CLIENT_KEY', process.env.ROX_CLIENT_KEY)
-    Rox.setup(process.env.ROX_CLIENT_KEY)
-    Rox.setCustomNumberProperty("contentPartner", () => 1)
-    Rox.setCustomStringProperty("email", () => 'test@gmail.com')
-    Rox.setCustomBooleanProperty("admin", () => false)
-  })
+  Rox.register('wurl', featureFlags)
+  console.log('ROX_CLIENT_KEY', process.env.ROX_CLIENT_KEY)
+  Rox.setup(process.env.ROX_CLIENT_KEY)
+  Rox.setCustomNumberProperty("contentPartner", () => 1)
+  Rox.setCustomStringProperty("email", () => 'test@gmail.com')
+  Rox.setCustomBooleanProperty("admin", () => false)
 
   
   //@ts-ignore

@@ -4,7 +4,6 @@
  * and the ReactOnRails prep code.
  */
 import ReactOnRails from 'react-on-rails';
-import { TReduxDispatch } from '../types';
 import { GlobalStoreType } from '../types/rails';
 
 /**
@@ -15,8 +14,3 @@ export const getReduxStore = () => {
  // This should be the only instance of this line in the whole application.
  return ReactOnRails.getStore("SchedulerStore") as GlobalStoreType
 }
-
-/** Returns the dispatch function so you can send actions to the reduxStore. */
-export const getDispatch = () => {
- return getReduxStore().dispatch as TReduxDispatch
-};

@@ -26,10 +26,10 @@ import MuiTheme from './muiTheme'
  * It's actually not much to look at.
 **/
 const MainApp = ({ store, history }:{store:GlobalStoreType, history:THistory}) => {
-  let appState = store.getState()
   import(/* webpackChunkName: "rox-browser" */ 'rox-browser').then(RoxModule=>{
     let Rox = RoxModule.default
     Rox.register('wurl', featureFlags)
+    console.log('ROX_CLIENT_KEY', process.env.ROX_CLIENT_KEY)
     Rox.setup(process.env.ROX_CLIENT_KEY)
     Rox.setCustomNumberProperty("contentPartner", () => 1)
     Rox.setCustomStringProperty("email", () => 'test@gmail.com')

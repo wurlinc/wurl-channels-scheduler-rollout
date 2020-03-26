@@ -65,6 +65,7 @@ module ApplicationHelper
     FeatureFlags::ALL_FLAGS.collect do |flag_name|
       result[flag_name] = FeatureFlags.instance.send(flag_name.to_sym).enabled?
     end
+    puts "initial_rox_flags #{result}"
     return result
   end
 

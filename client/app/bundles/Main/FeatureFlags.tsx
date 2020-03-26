@@ -7,6 +7,8 @@ let initialFlags = initialFlagsTag ? initialFlagsTag.textContent || '{}' : '{}'
 
 const FEATURE_FLAG_INITIAL_STORE = JSON.parse(initialFlags)
 
+console.log('FEATURE_FLAG_INITIAL_STORE', FEATURE_FLAG_INITIAL_STORE)
+
 /**
  * Static temporary flag that gets the *real* value from FeatureFlags.rb but
  * without loading 700K+ worth of Rox UI yet.
@@ -47,6 +49,7 @@ import(/* webpackChunkName: "rox-browser"  */ 'rox-browser').then(Rox=>{
   featureFlags.ROX_LOADED = true
   //@ts-ignore
   featureFlags.Rox = Rox
+  console.log('initializing real front-end flags')
   Object.keys(FEATURE_FLAG_INITIAL_STORE).forEach((flagName) => {
     featureFlags[flagName] = new Rox.Flag()
   });
